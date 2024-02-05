@@ -1,0 +1,12 @@
+#!/bin/bash
+
+RESP="$(curl -s -w '%{response_code}\n' ${1})"
+OUTPUT="$(echo "$RESP" | sed '$d')"
+STATUS_CODE="$(echo "$RESP" | tail -n1)"
+
+if [ $STATUS_CODE == "200" ]; then
+    afplay /System/Library/Sounds/Purr.aiff &
+else
+    afplay /System/Library/Sounds/Submarine.aiff &
+fi
+echo "$OUTPUT"
